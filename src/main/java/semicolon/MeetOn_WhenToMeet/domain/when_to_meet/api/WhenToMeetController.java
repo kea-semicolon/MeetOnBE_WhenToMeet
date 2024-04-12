@@ -29,7 +29,7 @@ public class WhenToMeetController {
      * @param request
      * @return
      */
-    @Operation(description = "WhenToMeet 생성")
+    @Operation(summary = "WhenToMeet 생성", description = "WhenToMeet 생성 + WhenToMeetSaveRequestDto")
     @PostMapping
     public ResponseEntity<String> saveWhenToMeet(@RequestBody WhenToMeetSaveRequestDto whenToMeetSaveRequestDto,
                                                  HttpServletRequest request) {
