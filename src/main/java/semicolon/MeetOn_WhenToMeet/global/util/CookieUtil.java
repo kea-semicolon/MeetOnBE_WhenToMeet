@@ -1,11 +1,11 @@
-package semicolon.MeetOn_WhenToMeet.global.global.util;
+package semicolon.MeetOn_WhenToMeet.global.util;
 
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.stereotype.Component;
-import semicolon.MeetOn_WhenToMeet.global.global.exception.BusinessLogicException;
-import semicolon.MeetOn_WhenToMeet.global.global.exception.code.ExceptionCode;
+import semicolon.MeetOn_WhenToMeet.global.exception.BusinessLogicException;
+import semicolon.MeetOn_WhenToMeet.global.exception.code.ExceptionCode;
 
 @Component
 public class CookieUtil {

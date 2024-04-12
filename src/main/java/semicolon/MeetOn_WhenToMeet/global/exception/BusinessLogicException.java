@@ -1,8 +1,8 @@
-package semicolon.MeetOn_WhenToMeet.global.global.exception;
+package semicolon.MeetOn_WhenToMeet.global.exception;
 
 
 import lombok.Getter;
-import semicolon.MeetOn_WhenToMeet.global.global.exception.code.ExceptionCode;
+import semicolon.MeetOn_WhenToMeet.global.exception.code.ExceptionCode;
 
 @Getter
 public class BusinessLogicException extends RuntimeException{

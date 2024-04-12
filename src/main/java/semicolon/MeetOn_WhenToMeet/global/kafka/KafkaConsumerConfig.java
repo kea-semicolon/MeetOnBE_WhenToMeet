@@ -1,4 +1,4 @@
-package semicolon.MeetOn_WhenToMeet.global.global.kafka;
+package semicolon.MeetOn_WhenToMeet.global.kafka;
 
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.common.serialization.StringDeserializer;

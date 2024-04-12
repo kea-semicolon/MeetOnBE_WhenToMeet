@@ -1,4 +1,4 @@
-package semicolon.MeetOn_WhenToMeet.global.global.exception.code;
+package semicolon.MeetOn_WhenToMeet.global.exception.code;
 
 import lombok.Getter;
 
