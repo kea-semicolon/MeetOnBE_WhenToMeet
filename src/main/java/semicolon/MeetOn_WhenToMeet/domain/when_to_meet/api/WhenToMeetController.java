@@ -36,4 +36,8 @@ public class WhenToMeetController {
         Long saveId = whenToMeetService.saveWhenToMeet(whenToMeetSaveRequestDto, request);
         return ResponseEntity.status(HttpStatus.CREATED).body(saveId + " Created");
     }
+
+    /**
+     * WhenToMeet 삭제
+     */
 }
