@@ -12,6 +12,7 @@ import semicolon.MeetOn_WhenToMeet.global.exception.code.ExceptionCode;
 import semicolon.MeetOn_WhenToMeet.global.util.CookieUtil;
 
 import static semicolon.MeetOn_WhenToMeet.domain.when_to_meet.dto.WhenToMeetDto.*;
+import static semicolon.MeetOn_WhenToMeet.domain.when_to_meet.dto.WhenToMeetDto.WhenToMeetResponseDto.toWhenToMeetResponseDto;
 
 @Slf4j
 @Service
@@ -30,8 +31,22 @@ public class WhenToMeetService {
         if (!whenToMeetChannelService.channelExists(channelId, request.getHeader("Authorization"))) {
             throw new BusinessLogicException(ExceptionCode.CHANNEL_NOT_FOUND);
         }
-        WhenToMeet whenToMeet = WhenToMeet.toWhenToMeet(whenToMeetSaveRequestDto, channelId);
-        WhenToMeet saved = whenToMeetRepository.save(whenToMeet);
-        return saved.getId();
+        if(!whenToMeetRepository.existsByChannelId(channelId)){
+            WhenToMeet whenToMeet = WhenToMeet.toWhenToMeet(whenToMeetSaveRequestDto, channelId);
+            WhenToMeet saved = whenToMeetRepository.save(whenToMeet);
+            return saved.getId();
+        }
+        else{
+            throw new BusinessLogicException(ExceptionCode.WHENTOMEET_ALREADY_EXIST);
+        }
+    }
+
+
+    public WhenToMeetResponseDto getWhenToMeet(HttpServletRequest request) {
+        Long channelId = Long.valueOf(cookieUtil.getCookieValue("channelId", request));
+        WhenToMeet whenToMeet = whenToMeetRepository.findWhenToMeet(channelId)
+                .orElseThrow(() -> new BusinessLogicException(ExceptionCode.WHENTOMEET_NOT_FOUND));
+        log.info("test={}", whenToMeet.getTitle());
+        return toWhenToMeetResponseDto(whenToMeet);
     }
 }

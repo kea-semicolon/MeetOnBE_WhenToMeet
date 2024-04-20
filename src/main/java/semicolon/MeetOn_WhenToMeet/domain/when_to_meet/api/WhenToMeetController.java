@@ -6,10 +6,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import semicolon.MeetOn_WhenToMeet.domain.when_to_meet.application.WhenToMeetService;
 import semicolon.MeetOn_WhenToMeet.domain.when_to_meet.dto.WhenToMeetDto;
 
@@ -35,6 +32,17 @@ public class WhenToMeetController {
                                                  HttpServletRequest request) {
         Long saveId = whenToMeetService.saveWhenToMeet(whenToMeetSaveRequestDto, request);
         return ResponseEntity.status(HttpStatus.CREATED).body(saveId + " Created");
+    }
+
+    /**
+     *  WhenToMeet 조회
+     * @param request
+     * @return
+     */
+    @Operation(summary = "WhenToMeet 조회", description = "WhenToMeet 조회")
+    @GetMapping
+    public ResponseEntity<WhenToMeetResponseDto> responseWhenToMeet(HttpServletRequest request) {
+        return ResponseEntity.ok(whenToMeetService.getWhenToMeet(request));
     }
 
     /**
