@@ -46,7 +46,6 @@ public class WhenToMeetService {
         Long channelId = Long.valueOf(cookieUtil.getCookieValue("channelId", request));
         WhenToMeet whenToMeet = whenToMeetRepository.findWhenToMeet(channelId)
                 .orElseThrow(() -> new BusinessLogicException(ExceptionCode.WHENTOMEET_NOT_FOUND));
-        log.info("test={}", whenToMeet.getTitle());
         return toWhenToMeetResponseDto(whenToMeet);
     }
 }

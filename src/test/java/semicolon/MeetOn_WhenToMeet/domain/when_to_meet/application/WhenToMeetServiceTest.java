@@ -17,17 +17,24 @@ import org.springframework.mock.web.MockCookie;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.transaction.annotation.Transactional;
+import semicolon.MeetOn_WhenToMeet.domain.time_table.domain.TimeTable;
+import semicolon.MeetOn_WhenToMeet.domain.time_table.dto.TimeTableDto;
 import semicolon.MeetOn_WhenToMeet.domain.when_to_meet.dao.WhenToMeetRepository;
 import semicolon.MeetOn_WhenToMeet.domain.when_to_meet.domain.WhenToMeet;
 import semicolon.MeetOn_WhenToMeet.domain.when_to_meet.dto.WhenToMeetDto;
 import semicolon.MeetOn_WhenToMeet.global.util.CookieUtil;
 
+import java.sql.Time;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
+import static semicolon.MeetOn_WhenToMeet.domain.time_table.dto.TimeTableDto.*;
 import static semicolon.MeetOn_WhenToMeet.domain.when_to_meet.dto.WhenToMeetDto.*;
 
 @Slf4j
@@ -83,5 +90,33 @@ class WhenToMeetServiceTest {
             //then
             assertThat(whenToMeet.getId()).isEqualTo(whenToMeetService.saveWhenToMeet(whenToMeetSaveRequestDto, request));
         }
+    }
+
+    @Test
+    void 웬투밋_조회() {
+        //given
+        Long channelId = 1L;
+        WhenToMeet whenToMeet = WhenToMeet.builder().id(1L).title("test")
+                .endDate(LocalDateTime.now())
+                .endTime(1)
+                .startDate(LocalDateTime.now())
+                .startTime(2)
+                .timeTableList(new ArrayList<>())
+                .build();
+        TimeTable timeTable1 = new TimeTable(1L, "test1", 1L, whenToMeet);
+        TimeTable timeTable2 = new TimeTable(2L, "test2", 1L, whenToMeet);
+        whenToMeet.getTimeTableList().add(timeTable1);
+        whenToMeet.getTimeTableList().add(timeTable2);
+
+        //when
+        when(cookieUtil.getCookieValue("channelId", request))
+                .thenReturn(String.valueOf(1L));
+        when(whenToMeetRepository.findWhenToMeet(channelId))
+                .thenReturn(Optional.of(whenToMeet));
+
+        //then
+        WhenToMeetResponseDto result = whenToMeetService.getWhenToMeet(request);
+        assertThat(result.getTitle()).isEqualTo("test");
+        assertThat(result.getTimeBlockList().size()).isEqualTo(2);
     }
 }
