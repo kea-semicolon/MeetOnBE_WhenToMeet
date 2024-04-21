@@ -47,7 +47,15 @@ public class WhenToMeetController {
 
     /**
      * WhenToMeet 삭제
+     * @param request
+     * @return
      */
+    @Operation(summary = "WhenToMeet 삭제", description = "WhenToMeet 삭제")
+    @DeleteMapping
+    public ResponseEntity<String> deleteWhenToMeet(HttpServletRequest request){
+        whenToMeetService.deleteWhenToMeet(request);
+        return ResponseEntity.ok("Ok");
+    }
 
     /**
      * WhenToMeet 수정

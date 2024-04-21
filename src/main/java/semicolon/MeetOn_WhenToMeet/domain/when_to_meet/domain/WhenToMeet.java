@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import semicolon.MeetOn_WhenToMeet.domain.BaseTimeEntity;
 import semicolon.MeetOn_WhenToMeet.domain.time_table.domain.TimeTable;
 
 import java.time.LocalDateTime;
@@ -16,7 +17,7 @@ import static semicolon.MeetOn_WhenToMeet.domain.when_to_meet.dto.WhenToMeetDto.
 @Getter
 @Entity
 @NoArgsConstructor
-public class WhenToMeet {
+public class WhenToMeet extends BaseTimeEntity {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

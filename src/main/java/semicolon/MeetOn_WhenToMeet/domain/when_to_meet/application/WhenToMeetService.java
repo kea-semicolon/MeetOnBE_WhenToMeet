@@ -41,11 +41,18 @@ public class WhenToMeetService {
         }
     }
 
-
     public WhenToMeetResponseDto getWhenToMeet(HttpServletRequest request) {
         Long channelId = Long.valueOf(cookieUtil.getCookieValue("channelId", request));
         WhenToMeet whenToMeet = whenToMeetRepository.findWhenToMeet(channelId)
                 .orElseThrow(() -> new BusinessLogicException(ExceptionCode.WHENTOMEET_NOT_FOUND));
         return toWhenToMeetResponseDto(whenToMeet);
+    }
+
+    @Transactional
+    public void deleteWhenToMeet(HttpServletRequest request) {
+        Long channelId = Long.valueOf(cookieUtil.getCookieValue("channelId", request));
+        WhenToMeet whenToMeet = whenToMeetRepository.findByChannelId(channelId)
+                .orElseThrow(() -> new BusinessLogicException(ExceptionCode.WHENTOMEET_NOT_FOUND));
+        whenToMeetRepository.delete(whenToMeet);
     }
 }

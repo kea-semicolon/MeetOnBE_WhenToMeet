@@ -24,7 +24,6 @@ import semicolon.MeetOn_WhenToMeet.domain.when_to_meet.domain.WhenToMeet;
 import semicolon.MeetOn_WhenToMeet.domain.when_to_meet.dto.WhenToMeetDto;
 import semicolon.MeetOn_WhenToMeet.global.util.CookieUtil;
 
-import java.sql.Time;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -101,7 +100,6 @@ class WhenToMeetServiceTest {
                 .endTime(1)
                 .startDate(LocalDateTime.now())
                 .startTime(2)
-                .timeTableList(new ArrayList<>())
                 .build();
         TimeTable timeTable1 = new TimeTable(1L, "test1", 1L, whenToMeet);
         TimeTable timeTable2 = new TimeTable(2L, "test2", 1L, whenToMeet);
@@ -118,5 +116,30 @@ class WhenToMeetServiceTest {
         WhenToMeetResponseDto result = whenToMeetService.getWhenToMeet(request);
         assertThat(result.getTitle()).isEqualTo("test");
         assertThat(result.getTimeBlockList().size()).isEqualTo(2);
+    }
+
+    @Test
+    void 웬투밋_삭제() {
+        //given
+        Long channelId = 1L;
+        WhenToMeet whenToMeet = WhenToMeet.builder().id(1L).title("test")
+                .endDate(LocalDateTime.now())
+                .endTime(1)
+                .startDate(LocalDateTime.now())
+                .startTime(2)
+                .build();
+        TimeTable timeTable1 = new TimeTable(1L, "test1", 1L, whenToMeet);
+        TimeTable timeTable2 = new TimeTable(2L, "test2", 1L, whenToMeet);
+        whenToMeet.getTimeTableList().add(timeTable1);
+        whenToMeet.getTimeTableList().add(timeTable2);
+
+        //when
+        when(cookieUtil.getCookieValue("channelId", request)).thenReturn(String.valueOf(channelId));
+        when(whenToMeetRepository.findByChannelId(channelId)).thenReturn(Optional.of(whenToMeet));
+        whenToMeetService.deleteWhenToMeet(request);
+
+        //then
+        verify(whenToMeetRepository).findByChannelId(channelId);
+        verify(whenToMeetRepository).delete(whenToMeet);
     }
 }

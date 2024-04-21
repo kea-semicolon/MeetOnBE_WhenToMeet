@@ -18,4 +18,6 @@ public interface WhenToMeetRepository extends JpaRepository<WhenToMeet, Long> {
 
     @Query("select wtm from WhenToMeet wtm left join fetch wtm.timeTableList where wtm.channelId = :channelId")
     Optional<WhenToMeet> findWhenToMeet(@Param("channelId") Long channelId);
+
+    Optional<WhenToMeet> findByChannelId(Long channelId);
 }

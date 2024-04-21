@@ -3,11 +3,14 @@ package semicolon.MeetOn_WhenToMeet.domain.time_table.domain;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
+import semicolon.MeetOn_WhenToMeet.domain.BaseTimeEntity;
 import semicolon.MeetOn_WhenToMeet.domain.when_to_meet.domain.WhenToMeet;
 
 @Getter
 @Entity
-public class TimeTable {
+@NoArgsConstructor
+public class TimeTable extends BaseTimeEntity {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
