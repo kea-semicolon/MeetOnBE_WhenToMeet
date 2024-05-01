@@ -4,6 +4,7 @@ import lombok.Getter;
 
 @Getter
 public enum ExceptionCode {
+    TIMETABLE_NOT_FOUND(404, "TimeTable Not Found"),
     WHENTOMEET_ALREADY_EXIST(409, "WhenToMeet Already Exist"),
     WHENTOMEET_NOT_FOUND(404, "WhenToMeet Not Found"),
     SCHEDULE_NOT_FOUND(404, "Schedule Not Found"),

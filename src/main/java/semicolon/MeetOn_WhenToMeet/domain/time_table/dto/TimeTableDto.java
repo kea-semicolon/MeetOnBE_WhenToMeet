@@ -9,6 +9,17 @@ public class TimeTableDto {
 
     @Getter
     @NoArgsConstructor
+    public static class UpdateTimeTableDto {
+        private String timeBlock;
+
+        @Builder
+        public UpdateTimeTableDto(String timeBlock) {
+            this.timeBlock = timeBlock;
+        }
+    }
+
+    @Getter
+    @NoArgsConstructor
     public static class TimeTableInfoDto{
         private Long memberId;
         private String timeBlock;

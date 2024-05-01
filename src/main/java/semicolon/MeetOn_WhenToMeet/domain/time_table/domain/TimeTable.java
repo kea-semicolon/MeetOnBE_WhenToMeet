@@ -29,4 +29,8 @@ public class TimeTable extends BaseTimeEntity {
         this.memberId = memberId;
         this.whenToMeet = whenToMeet;
     }
+
+    public void updateTimeTable(String timeBlock) {
+        this.timeBlock = timeBlock;
+    }
 }
