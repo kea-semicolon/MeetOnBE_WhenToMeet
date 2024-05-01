@@ -53,6 +53,8 @@ public class WhenToMeet extends BaseTimeEntity {
                 .title(whenToMeetSaveRequestDto.getEventName())
                 .startDate(whenToMeetSaveRequestDto.getStartDate().atStartOfDay())
                 .endDate(whenToMeetSaveRequestDto.getEndDate().atStartOfDay())
+                .startTime(whenToMeetSaveRequestDto.getStartTime())
+                .endTime(whenToMeetSaveRequestDto.getEndTime())
                 .channelId(channelId)
                 .build();
     }
