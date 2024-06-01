@@ -2,6 +2,7 @@ package semicolon.MeetOn_WhenToMeet.domain.when_to_meet.application;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,8 +17,11 @@ public class WhenToMeetChannelService {
 
     private final WebClient webClient;
 
+    @Value("${app.gateway.url}")
+    private String gateway;
+
     Boolean channelExists(Long channelId, String accessToken) {
-        String uri = UriComponentsBuilder.fromUriString("http://172.16.212.76:8000/channel/find")
+        String uri = UriComponentsBuilder.fromUriString(gateway + "/channel/find")
                 .queryParam("channelId", channelId).toUriString();
 
         return webClient.get()
